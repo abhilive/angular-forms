@@ -14,7 +14,6 @@ import { Customer } from './customer';
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
   const confirmControl = c.get('confirmEmail');
-
   if (emailControl.pristine || confirmControl.pristine) {
     return null;
   }
@@ -86,10 +85,13 @@ export class CustomerComponent implements OnInit {
   }
 
   populateTestData(): void {
-    this.customerForm.setValue({
+    this.customerForm.patchValue({
       firstName: 'Jack',
       lastName: 'Harkness',
-      email: 'jack@torchwood.com',
+      emailGroup: {
+        email: 'jack@torchwood.com',
+        confirmEmail: 'jack@torchwood.com',
+      },
       sendCatalog: false,
     });
   }
